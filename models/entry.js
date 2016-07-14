@@ -2,25 +2,30 @@ var mongoose = require('mongoose');
 var moment = require('moment');
 
 var entrySchema = {
-  _id: { type: String, required: true },
   text: {
     type: String,
     required: true,
     // adjust maxlength to appropriate amount
     maxlength: 500,
     // determine journals from text for when entry via phone
+    //TODO: rethink logic below, what if want in specialty journal and primary?
     set: function(txt) {
       var hashtags = txt.match(/#(\S+)/g);
-      this.journals = hashtags.map(function(tag) {
-        return tag.slice(1).toLowerCase();
-      });
+      if (hashtags) {
+        this.journals = hashtags.map(function(tag) {
+          return tag.slice(1).toLowerCase();
+        });
+      } else {
+        this.journals = ['primary'];
+      }
+
       // TODO: remove hashtags from txt?
       return txt;
     }
   },
+  // TODO: should users be able to add same entry to multiple journals?
   journals: [{
     type: String,
-    default: 'general',
     ref: 'Journal'
   }],
   user: {
@@ -49,3 +54,5 @@ schema.set('toObject', { virtuals: true });
 schema.set('toJSON', { virtuals: true });
 
 module.exports = schema;
+
+// TODO: timestampls not showing up? why extra id?
