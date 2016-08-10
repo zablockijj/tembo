@@ -57,3 +57,5 @@ TODO:
 
 
 decided not to crete journal from entry as option bc too easy to make typos when texting
+
+TESTING GITLAB BEFORE DELETE PRIVATE GITHUB
