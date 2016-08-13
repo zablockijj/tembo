@@ -1,3 +1,4 @@
+require('dotenv').load();
 var wagner = require('wagner-core');
 var models = require('./lib/models/models')(wagner);
 var _ = require('underscore');
@@ -18,7 +19,7 @@ models.User.create({_id: '+12487399185'}, function(err, user) {
 
 models.Reminder.create({
   daysOfWeek: [0,1,2,3,4,5,6],
-  minutes: [0, 1, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 30, 35],
+  minutes: [30, 35],
   hours: [8,9,10,18,19,20,21,22,23,24],
   prompt: 'how are you feeling?'
 }, function(err, reminder) {
@@ -34,6 +35,11 @@ models.Reminder.create({
   }, function(err, journal) {
     if (err) {console.log('error creating journal');}
     console.log('this journal was created', journal);
+    seedsUser.defaultJournal = journal._id;
+    seedsUser.save(function(err, user) {
+      if (err) {console.log('error setting defaultJournal');}
+      console.log('updated user', user);
+    });
   });
 });
 

@@ -6,10 +6,10 @@ var gutil = require('gulp-util');
 gulp.task('test', function() {
   gulp
     .src(['test/*.js'], { read: false })
-    .pipe(mocha( { reporter: 'nyan' }))
+    .pipe(mocha( { reporter: 'spec' }))
     .on('error', gutil.log);
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['*/*.js', './*.js'], ['test']);
+  gulp.watch(['*/*.js', './*.js', '*/*/*.js', '*/*/*/*/*.js'], ['test']);
 });
