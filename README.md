@@ -54,8 +54,18 @@ TODO:
 - Events to log everything that happens to compare daily to ensure accurate record (for if paid model)
 - Fix Entry
 - Basic Web Routes
+- JWT rather than cookies
 
 
 decided not to crete journal from entry as option bc too easy to make typos when texting
 
-TESTING GITLAB BEFORE DELETE PRIVATE GITHUB
+TODO: create handle error function - with Q should be easier, might not need function
+
+how to monetize? since texting costs money, make that part of it paid? then need to change schema from having phone number be _id.
+
+TODO: move deafult journs to post save??? harder to tesst??
+
+if need in future
+populate()
+execPopulate()
+

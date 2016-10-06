@@ -13,16 +13,14 @@ cfg.port = process.env.PORT || 3000;
 // A random string that will help generate secure one-time passwords and
 // HTTP sessions
 cfg.secret = process.env.APP_SECRET || 'keyboard cat';
-
-// Your Twilio account SID and auth token, both found at:
-// https://www.twilio.com/user/account
-//
-// A good practice is to store these string values as system environment
-// variables, and load them from there as we are doing below. Alternately,
-// you could hard code these values here as strings.
 cfg.accountSid = process.env.TWILIO_ACCOUNT_SID;
 cfg.authToken = process.env.TWILIO_AUTH_TOKEN;
 cfg.sendingNumber = process.env.TWILIO_NUMBER;
+
+// setup db config
+cfg.db = {};
+cfg.db.dev = process.env.DB_DEV;
+cfg.db.test = process.env.DB_TEST;
 
 var requiredConfig = [cfg.accountSid, cfg.authToken, cfg.sendingNumber];
 var isConfigured = requiredConfig.every(function(configValue) {

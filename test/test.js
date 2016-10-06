@@ -169,7 +169,7 @@ describe('journal entry', function() {
     });
   });
 
-  it('should set entry journal to defaultJournal when no journal provided', function() {
+  it('should set entry journal to defaultJournal when no journal provided', function(done) {
     var sampleText = 'this is sample text';
     Entry.create({ txt: sampleText, user: testUser._id })
     .then(function(newEntry) {
