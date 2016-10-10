@@ -12,19 +12,37 @@ Q.all([
   models.Reminder.find({}).remove().exec()
 ])
   .then(function() {
-    createNewUser();
-    createReminders();
+    return createNewUser();
+  }).then(function(user) {
+    console.log('seeds user', user);
+    return createJournals(user);
   })
+    // createReminders();
   .catch(function(err) {
     console.log('something went wrong', err);
   });
 
 function createNewUser() {
-  models.User.create({_id: '+12487399185'}, function(err, user) {
-    if (err) {console.log('error creating user');}
-    console.log('succes user', user);
-    seedsUser = user;
-  });
+  return models.User.create({phone: '+12487399185', username: 'test', password: 'pw'})
+    .catch(function(e){
+      console.log('error creating user');
+    });
+}
+
+function createJournals(user) {
+  return Q.all([
+    createJournal('test1', user),
+    createJournal('test2', user)
+  ])
+}
+
+function createJournal(title, user) {
+  return models.Journal.create({title: title, user: user.id, reminderDetails: {reminderEnabled: false}})
+    .then(function(journal) {
+      models.Entry.create({journal: journal.id, text: 'test entry 1 ' + title, user: journal.user});
+      models.Entry.create({journal: journal.id, text: 'test entry 2 ' + title, user: journal.user});
+      models.Entry.create({journal: journal.id, text: 'test entry 3 ' + title, user: journal.user});
+    })
 }
 
 function createReminders() {
